@@ -5,8 +5,11 @@
 ## Grob-Planung
 
 1. Für welche API möchten Sie ein eigenes *front end* erstellen?
+   Valorant (non-official)
 2. Welche groben Funktionalitäten soll Ihr *front end* zur Verfügung stellen?
+   Man soll verschiedenste Sachen aus dem Spiel sehen, Wie Agents, Maps, Skins, Gamemodes, Waffen
 3. Was möchten Sie insbesondere dabei lernen oder üben?
+   Ich möchte js lernen weil die Sprache noch sehr neu ist für mich.
 
 ## 24.10.
 
@@ -28,3 +31,4 @@
 ✍️ Heute habe ich... (50-100 Wörter)
 
 ☝️ Vergessen Sie nicht, Ihren Code auf github hochzuladen
+
