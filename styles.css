@@ -1,81 +1,81 @@
+:root {
+  --bg: #0b0f14;
+  --card: #121a29;
+  --text: #e6eef6;
+  --muted: #9fb0c3;
+  --accent: #ff4655;
+  --border: #1e2a38;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-font-family: Arial, sans-serif;
-margin: 0;
-background-color: #0f1724;
-color: white;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  padding: 20px;
 }
 
-
-.site-header {
-background-color: #1e293b;
-padding: 1rem 2rem;
-display: flex;
-justify-content: space-between;
-align-items: center;
+h1 {
+  text-align: center;
+  color: var(--accent);
+  margin-bottom: 20px;
 }
 
-
-.home {
-text-align: center;
-padding: 5rem 2rem;
+ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
 }
 
-
-.card {
-background-color: #1e293b;
-text-align: center;
-padding: 2rem 1rem;
-border-radius: 10px;
-text-decoration: none;
-color: white;
-transition: transform 0.2s ease, background 0.3s ease;
+li {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
 }
 
-
-.card:hover {
-transform: translateY(-5px);
-background-color: #334155;
+li:hover {
+  transform: translateY(-4px);
 }
 
-
-.btn {
-background-color: #7c3aed;
-padding: 1rem 2rem;
-color: white;
-border-radius: 8px;
-text-decoration: none;
-display: inline-block;
-margin-top: 2rem;
+img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 6px;
 }
 
-
-.btn:hover {
-background-color: #8b5cf6;
+strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 6px;
 }
 
-
-.footer {
-text-align: center;
-padding: 1rem;
-background-color: #1e293b;
-margin-top: 2rem;
+small {
+  color: var(--muted);
+  font-size: 12px;
 }
 
-
-.back {
-color: #a5b4fc;
-text-decoration: none;
+button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 18px;
+  font-size: 15px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  z-index: 100;
 }
 
-
-.back:hover {
-text-decoration: underline;
-}
-
-
-.content {
-padding: 2rem;
-max-width: 900px;
-margin: auto;
-text-align: center;
+button:hover {
+  background: #e23f50;
 }
