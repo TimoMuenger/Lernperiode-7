@@ -22,12 +22,17 @@
 
 ## 31.10.
 
-- [ ] *proof of concept* erstellen
-- [ ] API mit meinem Projekt verbinden
-- [ ] die funktionen von allen buttons erstellen
+- [x] *proof of concept* erstellen
+- [x] API mit meinem Projekt verbinden
+- [x] die funktionen von allen buttons erstellen
 
-✍️ Heute habe ich... (50-100 Wörter)
+✍️ Heute habe ich alle verschiedenen APIs mit meinem Projekt verbunde und einen "zurück" Button erstellt.
 
-☝️ Vergessen Sie nicht, Ihren Code auf github hochzuladen
+## 7.11.
+
+- [ ] Design noch ein wenig anpassen vorallem die Buttons auf der Haupsteite
+- [ ] Es wir irgnedwie alles doppelt angezeigt, also alle Agents, Maps, etc. Dieses Problem beheben
+- [ ] eine neue API hinzufügen z.B. Seasons 
+
 
 
