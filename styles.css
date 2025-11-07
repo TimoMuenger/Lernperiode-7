@@ -79,3 +79,46 @@ button {
 button:hover {
   background: #e23f50;
 }
+
+li {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0;                
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  transition: transform .25s ease, box-shadow .25s ease;
+  overflow: hidden;           
+}
+
+li a {
+  display: flex;              
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;           
+  padding: 14px 18px;
+  text-decoration: none;      
+  color: var(--text);         
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 14px;        
+  outline: none;
+}
+
+
+li:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 10px 20px rgba(255,70,85,.2);
+}
+
+li a:hover {
+  text-shadow: 0 0 8px rgba(255,70,85,.5);
+}
+
+li a:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255,70,85,.6);
+}
+
+li:hover {
+  background: #0f1624;
+}
