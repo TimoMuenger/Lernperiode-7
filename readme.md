@@ -30,9 +30,15 @@
 
 ## 7.11.
 
-- [ ] Design noch ein wenig anpassen vorallem die Buttons auf der Haupsteite
-- [ ] Es wir irgnedwie alles doppelt angezeigt, also alle Agents, Maps, etc. Dieses Problem beheben
-- [ ] eine neue API hinzufügen z.B. Seasons 
+- [x] Design noch ein wenig anpassen vorallem die Buttons auf der Haupsteite
+- [x] Es wir irgnedwie alles doppelt angezeigt, also alle Agents, Maps, etc. Dieses Problem beheben
+- [x] eine neue API hinzufügen z.B. Seasons
+      
+✍️ Heute konnte ich meine Arbeitspakete gut erledigen. Allerdings war das hinzufügen der Neune API schwierig weil sie eine komplett neue js Methode braucht, was sehr aufwändig war.
 
+## 14.11.
+
+- [ ] Für z.B. Agents mehr Infos machen wenn man sie anklickt. (Falls das möglich ist, denn die Bilder kommen aus der API)
+- [ ] Neue APIs hinzufügen
 
 
