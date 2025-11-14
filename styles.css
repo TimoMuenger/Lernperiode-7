@@ -122,3 +122,16 @@ li a:focus-visible {
 li:hover {
   background: #0f1624;
 }
+
+#globalSearch {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px auto;
+  display: block;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
+}

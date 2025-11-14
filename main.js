@@ -1,77 +1,221 @@
-function showList(apiUrl, listId, nameKey = 'displayName', imageKey = 'displayIcon') {
-  fetch(apiUrl)
+document.addEventListener('DOMContentLoaded', async () => {
+  console.log('JS wurde geladen');
+
+  const listAgents = document.getElementById('agents');
+  const listWeapons = document.getElementById('weapons');
+  const listMaps = document.getElementById('maps');
+  const listBundles = document.getElementById('bundles');
+  const listGamemodes = document.getElementById('gamemodes');
+  const listCompTiers = document.getElementById('comptiers');
+
+  const globalSearch = document.getElementById('globalSearch');
+
+  const allLists = [
+    listAgents,
+    listWeapons,
+    listMaps,
+    listBundles,
+    listGamemodes,
+    listCompTiers
+  ].filter(Boolean);
+  if (globalSearch && allLists.length > 0) {
+    globalSearch.addEventListener('input', () => {
+      const term = globalSearch.value.toLowerCase();
+
+      allLists.forEach(list => {
+        Array.from(list.children).forEach(li => {
+          const text = li.textContent.toLowerCase();
+          li.style.display = text.includes(term) ? '' : 'none';
+        });
+      });
+    });
+  }
+
+
+  if (listAgents) {
+    console.log("Agents-Seite erkannt.");
+
+    const res = await fetch('https://valorant-api.com/v1/agents?isPlayableCharacter=true');
+    const json = await res.json();
+    const agents = json.data || [];
+
+    agents.forEach(agent => {
+      const li = document.createElement('li');
+      li.style.cursor = 'pointer';
+
+      const name = agent.displayName || 'Unbekannt';
+      const img = agent.displayIcon || '';
+
+      li.innerHTML = `
+        <strong>${name}</strong><br>
+        ${img ? `<img src="${img}" alt="${name}" width="150"><br>` : ''}
+      `;
+      li.addEventListener('click', () => {
+        console.log('Agent geklickt:', name);
+
+        const existing = li.querySelector('.agent-extra');
+        if (existing) {
+          existing.remove();
+          return;
+        }
+
+        const portrait = agent.fullPortrait || agent.displayIcon || '';
+        const desc = agent.description || 'Keine Beschreibung vorhanden.';
+        const roleName = agent.role?.displayName || 'Keine Rolle';
+        const abilities = (agent.abilities || [])
+          .filter(a => a.displayName)
+          .map(a => a.displayName)
+          .join(', ');
+
+        const extra = document.createElement('div');
+        extra.className = 'agent-extra';
+        extra.innerHTML = `
+          <hr>
+          ${portrait ? `<img src="${portrait}" alt="${name}" width="250"><br>` : ''}
+          <p>${desc}</p>
+          <p><strong>Rolle:</strong> ${roleName}</p>
+          <p><strong>Fähigkeiten:</strong> ${abilities}</p>
+        `;
+
+        li.appendChild(extra);
+      });
+
+      listAgents.appendChild(li);
+    });
+  }
+
+if (listWeapons) {
+  fetch("https://valorant-api.com/v1/weapons")
     .then(res => res.json())
     .then(data => {
-      const list = document.getElementById(listId);
-      if (!list) return;
+      data.data.forEach(weapon => {
+        const li = document.createElement("li");
+        li.style.cursor = "pointer";
 
-      data.data.forEach(item => {
-        const li = document.createElement('li');
-        const name = item[nameKey] || 'Unbekannt';
-        const img = item[imageKey] || '';
+        const name = weapon.displayName || "Unbekannt";
+        const img = weapon.displayIcon || "";
 
         li.innerHTML = `
           <strong>${name}</strong><br>
-          ${img ? `<img src="${img}" alt="${name}" width="150"><br>` : ''}
+          ${img ? `<img src="${img}" width="150"><br>` : ""}
         `;
-        list.appendChild(li);
+
+        li.addEventListener("click", () => {
+          const existing = li.querySelector(".weapon-extra");
+          if (existing) {
+            existing.remove();
+            return;
+          }
+
+          const category =
+            weapon.shopData?.category || weapon.category || "Unbekannte Kategorie";
+          const cost =
+            weapon.shopData && typeof weapon.shopData.cost === "number"
+              ? weapon.shopData.cost
+              : null;
+          const stats = weapon.weaponStats || {};
+
+          const extra = document.createElement("div");
+          extra.className = "weapon-extra";
+          extra.innerHTML = `
+            <hr>
+            <p><strong>Kategorie:</strong> ${category}</p>
+            ${cost !== null ? `<p><strong>Preis:</strong> ${cost} Credits</p>` : ""}
+            ${stats.fireRate ? `<p><strong>Fire Rate:</strong> ${stats.fireRate}</p>` : ""}
+            ${stats.magazineSize ? `<p><strong>Magazin:</strong> ${stats.magazineSize} Schuss</p>` : ""}
+            ${
+              stats.reloadTimeSeconds
+                ? `<p><strong>Reload:</strong> ${stats.reloadTimeSeconds}s</p>`
+                : ""
+            }
+          `;
+
+          li.appendChild(extra);
+        });
+
+        listWeapons.appendChild(li);
       });
-    })
-    .catch(err => console.error('Fehler:', err));
+    });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const path = window.location.pathname;
 
-  if (path.includes('agents')) {
-    showList('https://valorant-api.com/v1/agents?isPlayableCharacter=true', 'agents');
-  } else if (path.includes('weapons')) {
-    showList('https://valorant-api.com/v1/weapons', 'weapons');
-  } else if (path.includes('maps')) {
-    showList('https://valorant-api.com/v1/maps', 'maps', 'displayName', 'splash');
-  } else if (path.includes('bundles')) {
-    showList('https://valorant-api.com/v1/bundles', 'bundles');
-  } else if (path.includes('gamemodes')) {
-    showList('https://valorant-api.com/v1/gamemodes', 'gamemodes');
-  } else if (path.includes('comptiers')) {
-  showCompTiers('comptiers');
+  if (listMaps) {
+  fetch("https://valorant-api.com/v1/maps")
+    .then(res => res.json())
+    .then(data => {
+      data.data.forEach(map => {
+        const li = document.createElement("li");
+        li.style.cursor = "pointer";
+
+        const name = map.displayName || "Unbekannte Map";
+        const splash = map.splash || "";
+        const minimap = map.displayIcon || map.listViewIcon || "";
+        const coords = map.coordinates || "";
+
+        li.innerHTML = `
+          <strong>${name}</strong><br>
+          ${splash ? `<img src="${splash}" width="250"><br>` : ""}
+        `;
+
+        li.addEventListener("click", () => {
+          console.log("Map geklickt:", name);
+
+          const existing = li.querySelector(".map-extra");
+          if (existing) {
+            existing.remove();
+            return;
+          }
+
+          const extra = document.createElement("div");
+          extra.className = "map-extra";
+          extra.innerHTML = `
+            <hr>
+            ${minimap ? `<img src="${minimap}" alt="${name} Minimap" width="250"><br>` : ""}
+            ${coords ? `<p><strong>Koordinaten:</strong> ${coords}</p>` : ""}
+          `;
+
+          li.appendChild(extra);
+        });
+
+        listMaps.appendChild(li);
+      });
+    });
 }
 
-  async function showCompTiers(listId) {
-  const list = document.getElementById(listId);
-  if (!list) return;
+if (listBundles) {
+  fetch("https://valorant-api.com/v1/bundles")
+    .then(res => res.json())
+    .then(data => {
+      data.data.forEach(bundle => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <strong>${bundle.displayName}</strong><br>
+          ${bundle.displayIcon ? `<img src="${bundle.displayIcon}" width="200"><br>` : ""}
+        `;
+        listBundles.appendChild(li);
+      });
+    });
+}
 
-  try {
+
+  if (listCompTiers) {
     const res = await fetch('https://valorant-api.com/v1/competitivetiers');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
 
-    const sets = json?.data || [];
-    if (!sets.length) {
-      list.innerHTML = '<li><small>Keine Daten gefunden.</small></li>';
-      return;
-    }
+    const sets = json.data || [];
     const latest = sets[sets.length - 1];
-    const tiers = (latest.tiers || []).filter(t => (t.tier ?? 0) > 0);
+    const tiers = latest.tiers.filter(t => t.tier > 0);
 
     tiers.forEach(t => {
       const li = document.createElement('li');
-      const name = t.tierName || `Tier ${t.tier}`;
-      const img = t.largeIcon || t.smallIcon || '';
-
       li.innerHTML = `
-        <strong>${name}</strong>
-        ${img ? `<img src="${img}" alt="${name}" width="150"><br>` : ''}
+        <strong>${t.tierName}</strong><br>
+        ${t.largeIcon ? `<img src="${t.largeIcon}" width="150"><br>` : ""}
         <small>Tier ${t.tier}</small>
       `;
-      list.appendChild(li);
+      listCompTiers.appendChild(li);
     });
-  } catch (err) {
-    console.error(err);
-    list.innerHTML = '<li><small>Fehler beim Laden der Tiers.</small></li>';
   }
-}
-
 
   const backBtn = document.getElementById('backBtn');
   if (backBtn) {
