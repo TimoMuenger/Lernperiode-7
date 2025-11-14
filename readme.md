@@ -38,7 +38,16 @@
 
 ## 14.11.
 
-- [ ] Für z.B. Agents mehr Infos machen wenn man sie anklickt. (Falls das möglich ist, denn die Bilder kommen aus der API)
-- [ ] Neue APIs hinzufügen
+- [x] Für z.B. Agents mehr Infos machen wenn man sie anklickt. (Falls das möglich ist, denn die Bilder kommen aus der API)
+- [x] Ein Feld zum suchen erstellen
+
+✍️ Heute habe ich für die Agents, Waffen und Maps genauere Infos hinzugefügt. Auch habe ich eine Suchfeld hinzugefügt was vorallem für die Bundles von Vorteil ist.
+
+## 21.11.
+
+- [ ] Das Design von Startseite und den Genaueren Infos anpassen
+- [ ] Agents, Maps, Bundles, etc. sortieren
+- [ ] Einen Filter einbauen um verschiedene Möglichkeiten zu haben wie man etwas sortiert
+
 
 
