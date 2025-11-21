@@ -45,9 +45,17 @@
 
 ## 21.11.
 
-- [ ] Das Design von Startseite und den Genaueren Infos anpassen
-- [ ] Agents, Maps, Bundles, etc. sortieren
-- [ ] Einen Filter einbauen um verschiedene Möglichkeiten zu haben wie man etwas sortiert
+- [x] Das Design von Startseite und den Genaueren Infos anpassen
+- [x] Agents, Maps, Bundles, etc. sortieren
+- [x] Einen Filter einbauen um verschiedene Möglichkeiten zu haben wie man etwas sortiert
+
+✍️ Heute habe ich das Design von der gesamten Website ein wenig verändert wie auch ein Filter eingebaut um Agents und Waffen zu sortieren, nach z. B. Rolle oder Preis.
+
+## 28.11.
+
+- [ ] bug fixen, dass bei Gamemodes wieder etwas angezeigt wird
+- [ ] Bei genaueren Infos für die Waffen ein Bild vom Spray Pattern hinzufügen
+- [ ] Bei genaueren Inofs für die Waffen auch ein Preview mit allen Skins machen
 
 
 
