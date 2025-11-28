@@ -53,9 +53,16 @@
 
 ## 28.11.
 
-- [ ] bug fixen, dass bei Gamemodes wieder etwas angezeigt wird
-- [ ] Bei genaueren Infos für die Waffen ein Bild vom Spray Pattern hinzufügen
-- [ ] Bei genaueren Inofs für die Waffen auch ein Preview mit allen Skins machen
+- [x] bug fixen, dass bei Gamemodes wieder etwas angezeigt wird
+- [x] Bei genaueren Infos für die Waffen ein Bild vom Spray Pattern hinzufügen
+- [x] Bei genaueren Infos für die Waffen auch ein Preview mit allen Skins machen
 
+✍️ Heute habe ich den Bug gefixed mit dem Gamemodes. Auch habe ich mit der API die Waffenskins von jeder Waffe anzeigen lassen können und es gibt zum teil auch Vorschauvideos dazu. Das Mit den Spraypattern ist auch gegangen, allerdings nicht mit der API sondern mit eigenen Bildern.
+
+## 12.12.
+
+- [ ] Einen Hell/Dunkelmodus Switch einbauen
+- [ ] Vergleiche einbauen, das man z.B. zwei Agents oder Waffen vergleichen kann.
+- [ ] Ein Miniquiz programmieren, das man z.B. das Icon einer Fähigkeit bekommt und dann erraten muss, zu welchen Agent diese gehört
 
 
