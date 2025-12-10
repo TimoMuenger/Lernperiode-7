@@ -59,10 +59,17 @@
 
 ✍️ Heute habe ich den Bug gefixed mit dem Gamemodes. Auch habe ich mit der API die Waffenskins von jeder Waffe anzeigen lassen können und es gibt zum teil auch Vorschauvideos dazu. Das Mit den Spraypattern ist auch gegangen, allerdings nicht mit der API sondern mit eigenen Bildern.
 
-## 12.12.
+## 12.12
+- [x] Einen Hell/Dunkelmodus Switch einbauen
+- [x] Vergleiche einbauen, das man z.B. zwei Waffen vergleichen kann.
+- [x] Ein Miniquiz programmieren, das man z.B. das Icon einer Fähigkeit bekommt und dann erraten muss, zu welchen Agent diese gehört
 
-- [ ] Einen Hell/Dunkelmodus Switch einbauen
-- [ ] Vergleiche einbauen, das man z.B. zwei Agents oder Waffen vergleichen kann.
-- [ ] Ein Miniquiz programmieren, das man z.B. das Icon einer Fähigkeit bekommt und dann erraten muss, zu welchen Agent diese gehört
+✍️ Heute habe ich einen Hell/Dunkelmodus, einen Waffen vergleich und ein Miniquiz gemacht. Auch habe ich das Layout der Website so angepasst, dass es einen kleinen Abstand zum linken Rand hat.
+
+## 19.12
+- [ ] Programmieren, dass man sich einen random Agent, Waffe oder Map generieren lassen kann
+- [ ] Einen vergleich für Agents machen
+- [ ] Letzter Feinschliff, Projekt abschliessen
+
 
 
