@@ -6,13 +6,15 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <button id="backBtn">Zurück</button>
+    <div class="page">
+
   <h1>Valorant Agents</h1>
 <div class="toolbar">
   <select id="agentSort">
     <option value="name">Alphabetisch</option>
     <option value="role">Nach Rolle</option>
   </select>
+
 
   <select id="agentRoleFilter">
     <option value="all">Alle Rollen</option>
@@ -29,7 +31,12 @@
   placeholder="Suchen..."
  >
   <ul id="agents"></ul>
+</div>
 
+  <div class="right-buttons">
+    <button id="backBtn">Zurück</button>
+    <button id="themeToggle">Light Mode</button>
+  </div>
   <script src="main.js"></script>
 </body>
 </html>

@@ -396,3 +396,210 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  var btn = document.getElementById('themeToggle');
+
+  btn.addEventListener('click', function () {
+    document.body.classList.toggle('light');
+
+    if (document.body.classList.contains('light')) {
+      btn.textContent = "Dark Mode";
+    } else {
+      btn.textContent = "Light Mode";
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  var selectA = document.getElementById('itemA');
+  var selectB = document.getElementById('itemB');
+  var result = document.getElementById('result');
+  var compareBtn = document.getElementById('compareBtn');
+  var weapons = [];
+
+  fetch('https://valorant-api.com/v1/weapons')
+    .then(function (res) { return res.json(); })
+    .then(function (json) {
+      weapons = json.data;
+
+      weapons.forEach(function (w) {
+        var opt1 = document.createElement('option');
+        opt1.value = w.uuid;
+        opt1.textContent = w.displayName;
+
+        var opt2 = opt1.cloneNode(true);
+
+        selectA.appendChild(opt1);
+        selectB.appendChild(opt2);
+      });
+    });
+
+  compareBtn.addEventListener('click', function () {
+    var weaponA = weapons.find(function (w) { return w.uuid === selectA.value; });
+    var weaponB = weapons.find(function (w) { return w.uuid === selectB.value; });
+
+    if (!weaponA || !weaponB) {
+      result.textContent = "Bitte zwei Waffen auswählen.";
+      return;
+    }
+
+    var sprayA = weaponSprayImages[weaponA.displayName];
+    var sprayB = weaponSprayImages[weaponB.displayName];
+
+
+
+    result.innerHTML = `
+      <h2>${weaponA.displayName} vs ${weaponB.displayName}</h2>
+      <p>Preis: ${weaponA.shopData ? weaponA.shopData.cost : "?"} --> ${weaponB.shopData ? weaponB.shopData.cost : "?"}</p>
+      <p>Fire Rate: ${weaponA.weaponStats ? weaponA.weaponStats.fireRate : "?"} --> ${weaponB.weaponStats ? weaponB.weaponStats.fireRate : "?"}</p>
+      <p>Magazine Size: ${weaponA.weaponStats ? weaponA.weaponStats.magazineSize : "?"} --> ${weaponB.weaponStats ? weaponB.weaponStats.magazineSize : "?"}</p>
+      <p>Spray Pattern:</p>
+<div style="display: flex; gap: 20px; align-items: center;">
+  <div>
+    <p>${weaponA.displayName}</p>
+    <img src="${sprayA}" alt="Spray ${weaponA.displayName}" style="width: 200px;">
+  </div>
+
+  <div>
+    <p>${weaponB.displayName}</p>
+    <img src="${sprayB}" alt="Spray ${weaponB.displayName}" style="width: 200px;">
+  </div>
+</div>
+
+    `;
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var quizContainer = document.getElementById('quiz-container');
+  if (!quizContainer) {
+    return;
+  }
+
+  var iconImg = document.getElementById('ability-icon');
+  var answerButtons = document.querySelectorAll('.answer-btn');
+  var feedback = document.getElementById('quiz-feedback');
+  var scoreText = document.getElementById('quiz-score');
+  var nextBtn = document.getElementById('next-question-btn');
+
+  var agents = [];
+  var abilities = [];
+  var currentCorrectAgent = null;
+  var score = 0;
+  var total = 0;
+
+  function shuffle(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+  }
+
+  function buildAbilityPool() {
+    abilities = [];
+    for (var i = 0; i < agents.length; i++) {
+      var agent = agents[i];
+      if (!agent.abilities || !agent.displayName) {
+        continue;
+      }
+      for (var j = 0; j < agent.abilities.length; j++) {
+        var ability = agent.abilities[j];
+        if (ability && ability.displayIcon && ability.displayName) {
+          abilities.push({
+            agentName: agent.displayName,
+            icon: ability.displayIcon,
+            abilityName: ability.displayName
+          });
+        }
+      }
+    }
+  }
+
+  function pickQuestion() {
+    feedback.textContent = "";
+    if (abilities.length === 0) {
+      return;
+    }
+
+    var randomIndex = Math.floor(Math.random() * abilities.length);
+    var chosen = abilities[randomIndex];
+
+    currentCorrectAgent = chosen.agentName;
+    iconImg.src = chosen.icon;
+    iconImg.alt = chosen.abilityName;
+
+    var options = [chosen.agentName];
+
+    while (options.length < 4 && options.length < agents.length) {
+      var randomAgent = agents[Math.floor(Math.random() * agents.length)];
+      if (options.indexOf(randomAgent.displayName) === -1) {
+        options.push(randomAgent.displayName);
+      }
+    }
+
+    shuffle(options);
+
+    for (var i = 0; i < answerButtons.length; i++) {
+      if (i < options.length) {
+        answerButtons[i].style.display = "inline-block";
+        answerButtons[i].textContent = options[i];
+        answerButtons[i].disabled = false;
+      } else {
+        answerButtons[i].style.display = "none";
+      }
+    }
+
+    updateScoreText();
+  }
+
+  function handleAnswerClick(event) {
+    var chosenName = event.target.textContent;
+    total += 1;
+    if (chosenName === currentCorrectAgent) {
+      score += 1;
+      feedback.textContent = "Richtig! " + currentCorrectAgent + ".";
+    } else {
+      feedback.textContent = "Falsch. Richtige Antwort: " + currentCorrectAgent + ".";
+    }
+    for (var i = 0; i < answerButtons.length; i++) {
+      answerButtons[i].disabled = true;
+    }
+    updateScoreText();
+  }
+
+  function updateScoreText() {
+    if (total === 0) {
+      scoreText.textContent = "";
+    } else {
+      scoreText.textContent = "Punkte: " + score + " / " + total;
+    }
+  }
+
+  for (var i = 0; i < answerButtons.length; i++) {
+    answerButtons[i].addEventListener('click', handleAnswerClick);
+  }
+
+  nextBtn.addEventListener('click', function () {
+    pickQuestion();
+  });
+
+  fetch('https://valorant-api.com/v1/agents?isPlayableCharacter=true')
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (json) {
+      agents = json.data || [];
+      buildAbilityPool();
+      pickQuestion();
+    })
+    .catch(function (err) {
+      feedback.textContent = "Fehler beim Laden der Daten.";
+      console.log(err);
+    });
+});
+
+
