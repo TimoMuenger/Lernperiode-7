@@ -67,9 +67,15 @@
 ✍️ Heute habe ich einen Hell/Dunkelmodus, einen Waffen vergleich und ein Miniquiz gemacht. Auch habe ich das Layout der Website so angepasst, dass es einen kleinen Abstand zum linken Rand hat.
 
 ## 19.12
-- [ ] Programmieren, dass man sich einen random Agent, Waffe oder Map generieren lassen kann
-- [ ] Einen vergleich für Agents machen
-- [ ] Letzter Feinschliff, Projekt abschliessen
+- [x] Programmieren, dass man sich einen random Agent, Waffe oder Map generieren lassen kann
+- [x] Einen vergleich für Agents machen
+- [x] Letzter Feinschliff, Projekt abschliessen
+
+✍️ Heute habe ich einen random Generator für Waffe, Agents und Maps gemacht. Auch habe ich dem Vergelich für Waffen Agents hinzugefügt.
+
+# Fertiges Projekt
+Mein fertiges ist eine Website über Valorant basierend auf einer API. Sie hat verschiedenste Funktionen wie Vergleiche, ein Quiz, etc.
+<img width="1869" height="410" alt="image" src="https://github.com/user-attachments/assets/292143ae-e302-47e0-a26f-a57e64da997c" />
 
 
 
