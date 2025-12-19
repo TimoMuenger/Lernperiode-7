@@ -74,12 +74,13 @@
 ✍️ Heute habe ich einen random Generator für Waffe, Agents und Maps gemacht. Auch habe ich dem Vergelich für Waffen Agents hinzugefügt.
 
 # Fertiges Projekt
-Mein fertiges ist eine Website über Valorant basierend auf einer API. Sie hat verschiedenste Funktionen wie Vergleiche, ein Quiz, etc.
+Mein fertiges Projekt ist eine Website über Valorant basierend auf einer API. Sie hat verschiedenste Funktionen wie Vergleiche, ein Quiz, etc.
 
 <img width="1869" height="410" alt="image" src="https://github.com/user-attachments/assets/292143ae-e302-47e0-a26f-a57e64da997c" />
 
 # Reflexion
 In dieser LP habe ich viel über JS gelernt, welche für mich eine eher neue Programmiersprache war. Es hat mir bei der LB des Modules 294 viel
 geholfen und ich konnte auch HTML und CSS auffrischen und mein Können verbessern.
+
 
 
