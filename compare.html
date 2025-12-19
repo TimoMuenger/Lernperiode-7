@@ -6,27 +6,38 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="page">
+  <div class="page">
+    <h1>Vergleichen</h1>
 
-  <h1>Waffen vergleichen</h1>
+    <h2>Waffen vergleichen</h2>
+    <div class="compare-row">
+      <div class="left-selects">
+        <select id="weaponA"></select>
+        <select id="weaponB"></select>
+      </div>
+    </div>
+    <button id="compareWeaponsBtn">Waffenvergleichen</button>
 
-  <div class="compare-row">
+    <hr>
 
-  <div class="left-selects">
-    <select id="itemA"></select>
-    <select id="itemB"></select>
+    <h2>Agents vergleichen</h2>
+    <div class="compare-row">
+      <div class="left-selects">
+        <select id="agentA"></select>
+        <select id="agentB"></select>
+      </div>
+    </div>
+    <button id="compareAgentsBtn">Agents vergleichen</button>
+
+    <div class="right-buttons">
+      <button id="backBtn">Zurück</button>
+      <button id="themeToggle">Light Mode</button>
+    </div>
   </div>
-  </div>
-  <div class="right-buttons">
-    <button id="backBtn">Zurück</button>
-    <button id="themeToggle">Light Mode</button>
-    <button id="compareBtn">Vergleichen</button>
 
-  </div>
-</div>
+  <div id="resultWeapons"></div>
+  <div id="resultAgents"></div>
 
-
-  <div id="result"></div>
   <script src="main.js"></script>
 </body>
 </html>

@@ -315,3 +315,46 @@ button:active {
 .page {
   padding: 32px;
 }
+
+.random-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.random-card {
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.random-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.result-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.result-img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.result-img.wide {
+  width: 120px;
+  height: 72px;
+}
+
+.muted {
+  opacity: 0.75;
+}

@@ -399,6 +399,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 document.addEventListener('DOMContentLoaded', function () {
   var btn = document.getElementById('themeToggle');
+  if (!btn) {
+    return;
+  }
 
   btn.addEventListener('click', function () {
     document.body.classList.toggle('light');
@@ -412,17 +415,32 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-
-  var selectA = document.getElementById('itemA');
-  var selectB = document.getElementById('itemB');
-  var result = document.getElementById('result');
-  var compareBtn = document.getElementById('compareBtn');
+  var selectA = document.getElementById('weaponA');
+  var selectB = document.getElementById('weaponB');
+  var result = document.getElementById('resultWeapons');
+  var compareBtn = document.getElementById('compareWeaponsBtn');
   var weapons = [];
+
+  if (!selectA || !selectB || !result || !compareBtn) {
+    return;
+  }
+
+  function escapeHtml(text) {
+    if (text === null || text === undefined) {
+      return "";
+    }
+    return String(text)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
 
   fetch('https://valorant-api.com/v1/weapons')
     .then(function (res) { return res.json(); })
     .then(function (json) {
-      weapons = json.data;
+      weapons = json.data || [];
 
       weapons.forEach(function (w) {
         var opt1 = document.createElement('option');
@@ -448,27 +466,34 @@ document.addEventListener('DOMContentLoaded', function () {
     var sprayA = weaponSprayImages[weaponA.displayName];
     var sprayB = weaponSprayImages[weaponB.displayName];
 
+    var nameA = escapeHtml(weaponA.displayName);
+    var nameB = escapeHtml(weaponB.displayName);
 
+    var costA = weaponA.shopData ? weaponA.shopData.cost : "?";
+    var costB = weaponB.shopData ? weaponB.shopData.cost : "?";
 
-    result.innerHTML = `
-      <h2>${weaponA.displayName} vs ${weaponB.displayName}</h2>
-      <p>Preis: ${weaponA.shopData ? weaponA.shopData.cost : "?"} --> ${weaponB.shopData ? weaponB.shopData.cost : "?"}</p>
-      <p>Fire Rate: ${weaponA.weaponStats ? weaponA.weaponStats.fireRate : "?"} --> ${weaponB.weaponStats ? weaponB.weaponStats.fireRate : "?"}</p>
-      <p>Magazine Size: ${weaponA.weaponStats ? weaponA.weaponStats.magazineSize : "?"} --> ${weaponB.weaponStats ? weaponB.weaponStats.magazineSize : "?"}</p>
-      <p>Spray Pattern:</p>
-<div style="display: flex; gap: 20px; align-items: center;">
-  <div>
-    <p>${weaponA.displayName}</p>
-    <img src="${sprayA}" alt="Spray ${weaponA.displayName}" style="width: 200px;">
-  </div>
+    var fireA = weaponA.weaponStats ? weaponA.weaponStats.fireRate : "?";
+    var fireB = weaponB.weaponStats ? weaponB.weaponStats.fireRate : "?";
 
-  <div>
-    <p>${weaponB.displayName}</p>
-    <img src="${sprayB}" alt="Spray ${weaponB.displayName}" style="width: 200px;">
-  </div>
-</div>
+    var magA = weaponA.weaponStats ? weaponA.weaponStats.magazineSize : "?";
+    var magB = weaponB.weaponStats ? weaponB.weaponStats.magazineSize : "?";
 
-    `;
+    result.innerHTML =
+      "<h2>" + nameA + " vs " + nameB + "</h2>" +
+      "<p>Preis: " + costA + " --> " + costB + "</p>" +
+      "<p>Fire Rate: " + fireA + " --> " + fireB + "</p>" +
+      "<p>Magazine Size: " + magA + " --> " + magB + "</p>" +
+      "<p>Spray Pattern:</p>" +
+      "<div style='display: flex; gap: 20px; align-items: center;'>" +
+        "<div>" +
+          "<p>" + nameA + "</p>" +
+          (sprayA ? "<img src='" + escapeHtml(sprayA) + "' alt='Spray " + nameA + "' style='width: 200px;'>" : "<p>Kein Spray Bild</p>") +
+        "</div>" +
+        "<div>" +
+          "<p>" + nameB + "</p>" +
+          (sprayB ? "<img src='" + escapeHtml(sprayB) + "' alt='Spray " + nameB + "' style='width: 200px;'>" : "<p>Kein Spray Bild</p>") +
+        "</div>" +
+      "</div>";
   });
 });
 
@@ -602,4 +627,245 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  var agentSelectA = document.getElementById('agentA');
+  var agentSelectB = document.getElementById('agentB');
+  var agentResult = document.getElementById('resultAgents');
+  var compareAgentsBtn = document.getElementById('compareAgentsBtn');
+  var agents = [];
 
+  if (!agentSelectA || !agentSelectB || !agentResult || !compareAgentsBtn) {
+    return;
+  }
+
+  function escapeHtml(text) {
+    if (text === null || text === undefined) {
+      return "";
+    }
+    return String(text)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  fetch('https://valorant-api.com/v1/agents?isPlayableCharacter=true')
+    .then(function (res) { return res.json(); })
+    .then(function (json) {
+      agents = json.data || [];
+
+      agents.forEach(function (a) {
+        var opt1 = document.createElement('option');
+        opt1.value = a.uuid;
+        opt1.textContent = a.displayName;
+
+        var opt2 = opt1.cloneNode(true);
+
+        agentSelectA.appendChild(opt1);
+        agentSelectB.appendChild(opt2);
+      });
+    });
+
+  compareAgentsBtn.addEventListener('click', function () {
+    var a = agents.find(function (x) { return x.uuid === agentSelectA.value; });
+    var b = agents.find(function (x) { return x.uuid === agentSelectB.value; });
+
+    if (!a || !b) {
+      agentResult.textContent = "Bitte zwei Agents auswählen.";
+      return;
+    }
+
+    var nameA = escapeHtml(a.displayName || "—");
+    var nameB = escapeHtml(b.displayName || "—");
+
+    var roleA = a.role && a.role.displayName ? escapeHtml(a.role.displayName) : "—";
+    var roleB = b.role && b.role.displayName ? escapeHtml(b.role.displayName) : "—";
+
+    var imgA = a.fullPortrait || a.displayIcon || "";
+    var imgB = b.fullPortrait || b.displayIcon || "";
+
+    var abilA = (a.abilities || []).filter(function (z) { return z && z.displayName; }).map(function (z) { return z.displayName; }).join(", ");
+    var abilB = (b.abilities || []).filter(function (z) { return z && z.displayName; }).map(function (z) { return z.displayName; }).join(", ");
+
+    agentResult.innerHTML =
+      "<h2>" + nameA + " vs " + nameB + "</h2>" +
+      "<div style='display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;'>" +
+        "<div style='min-width:260px;'>" +
+          (imgA ? "<img src='" + escapeHtml(imgA) + "' alt='" + nameA + "' style='width:260px; max-width:100%;'><br>" : "") +
+          "<p><strong>Role:</strong> " + roleA + "</p>" +
+          "<p><strong>Fähigkeiten:</strong> " + escapeHtml(abilA || "—") + "</p>" +
+        "</div>" +
+        "<div style='min-width:260px;'>" +
+          (imgB ? "<img src='" + escapeHtml(imgB) + "' alt='" + nameB + "' style='width:260px; max-width:100%;'><br>" : "") +
+          "<p><strong>Role:</strong> " + roleB + "</p>" +
+          "<p><strong>Fähigkeiten:</strong> " + escapeHtml(abilB || "—") + "</p>" +
+        "</div>" +
+      "</div>";
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  let btnAgent = document.getElementById("btn-random-agent");
+  let btnWeapon = document.getElementById("btn-random-weapon");
+  let btnMap = document.getElementById("btn-random-map");
+
+  let outAgent = document.getElementById("random-agent");
+  let outWeapon = document.getElementById("random-weapon");
+  let outMap = document.getElementById("random-map");
+
+  if (!btnAgent || !btnWeapon || !btnMap || !outAgent || !outWeapon || !outMap) {
+    return;
+  }
+
+  function getRandomItem(list) {
+    if (!Array.isArray(list) || list.length === 0) {
+      return null;
+    }
+    let idx = Math.floor(Math.random() * list.length);
+    return list[idx];
+  }
+
+  function setLoading(el) {
+    el.innerHTML = "<p class='muted'>Lade...</p>";
+  }
+
+  function setError(el) {
+    el.innerHTML = "<p class='muted'>Konnte nicht laden (API/Netzwerk).</p>";
+  }
+
+  function escapeHtml(text) {
+    if (text === null || text === undefined) {
+      return "";
+    }
+    return String(text)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function renderAgent(agent) {
+    let name = agent && agent.displayName ? agent.displayName : "Unbekannt";
+    let role = agent && agent.role && agent.role.displayName ? agent.role.displayName : "—";
+    let img = agent && agent.displayIcon ? agent.displayIcon : "";
+
+    outAgent.innerHTML =
+      "<div class='result-row'>" +
+        (img ? "<img class='result-img' src='" + escapeHtml(img) + "' alt='" + escapeHtml(name) + "'>" : "") +
+        "<div class='result-text'>" +
+          "<h3>" + escapeHtml(name) + "</h3>" +
+          "<p class='muted'>Role: " + escapeHtml(role) + "</p>" +
+        "</div>" +
+      "</div>";
+  }
+
+  function renderWeapon(weapon) {
+    let name = weapon && weapon.displayName ? weapon.displayName : "Unbekannt";
+    let img = weapon && weapon.displayIcon ? weapon.displayIcon : "";
+
+    let categoryRaw = weapon && weapon.category ? weapon.category : "";
+    let category = categoryRaw ? categoryRaw.replace("EEquippableCategory::", "") : "—";
+
+    outWeapon.innerHTML =
+      "<div class='result-row'>" +
+        (img ? "<img class='result-img' src='" + escapeHtml(img) + "' alt='" + escapeHtml(name) + "'>" : "") +
+        "<div class='result-text'>" +
+          "<h3>" + escapeHtml(name) + "</h3>" +
+          "<p class='muted'>Kategorie: " + escapeHtml(category) + "</p>" +
+        "</div>" +
+      "</div>";
+  }
+
+  function renderMap(map) {
+    let name = map && map.displayName ? map.displayName : "Unbekannt";
+    let img = map && map.splash ? map.splash : (map && map.displayIcon ? map.displayIcon : "");
+
+    outMap.innerHTML =
+      "<div class='result-row'>" +
+        (img ? "<img class='result-img wide' src='" + escapeHtml(img) + "' alt='" + escapeHtml(name) + "'>" : "") +
+        "<div class='result-text'>" +
+          "<h3>" + escapeHtml(name) + "</h3>" +
+        "</div>" +
+      "</div>";
+  }
+
+  function fetchJson(url) {
+    return fetch(url).then(function (res) {
+      if (!res.ok) {
+        throw new Error("HTTP " + res.status);
+      }
+      return res.json();
+    });
+  }
+
+  function loadRandomAgent() {
+    setLoading(outAgent);
+
+    let url = "https://valorant-api.com/v1/agents?isPlayableCharacter=true";
+    fetchJson(url)
+      .then(function (data) {
+        let list = data && data.data ? data.data : [];
+        let agent = getRandomItem(list);
+        if (!agent) {
+          setError(outAgent);
+          return;
+        }
+        renderAgent(agent);
+      })
+      .catch(function () {
+        setError(outAgent);
+      });
+  }
+
+  function loadRandomWeapon() {
+    setLoading(outWeapon);
+
+    let url = "https://valorant-api.com/v1/weapons";
+    fetchJson(url)
+      .then(function (data) {
+        let list = data && data.data ? data.data : [];
+        let weapon = getRandomItem(list);
+        if (!weapon) {
+          setError(outWeapon);
+          return;
+        }
+        renderWeapon(weapon);
+      })
+      .catch(function () {
+        setError(outWeapon);
+      });
+  }
+
+  function loadRandomMap() {
+    setLoading(outMap);
+
+    let url = "https://valorant-api.com/v1/maps";
+    fetchJson(url)
+      .then(function (data) {
+        let list = data && data.data ? data.data : [];
+        let map = getRandomItem(list);
+        if (!map) {
+          setError(outMap);
+          return;
+        }
+        renderMap(map);
+      })
+      .catch(function () {
+        setError(outMap);
+      });
+  }
+
+  btnAgent.addEventListener("click", function () {
+    loadRandomAgent();
+  });
+
+  btnWeapon.addEventListener("click", function () {
+    loadRandomWeapon();
+  });
+
+  btnMap.addEventListener("click", function () {
+    loadRandomMap();
+  });
+});
