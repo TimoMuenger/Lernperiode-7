@@ -1,4 +1,4 @@
-# Lern-Periode 7
+# Lernperiode 7
 
 24.10. bis 19.12.2025
 
@@ -81,6 +81,7 @@ Mein fertiges Projekt ist eine Website über Valorant basierend auf einer API. S
 # Reflexion
 In dieser LP habe ich viel über JS gelernt, welche für mich eine eher neue Programmiersprache war. Es hat mir bei der LB des Modules 294 viel
 geholfen und ich konnte auch HTML und CSS auffrischen und mein Können verbessern.
+
 
 
 
